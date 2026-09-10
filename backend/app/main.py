@@ -80,10 +80,10 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 # Static files & templates
 # ---------------------------------------------------------------------------
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # backend/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # = intelligent_document_extraction/
 
-# Frontend paths (relative to project root)
-FRONTEND_DIR = BASE_DIR.parent / "frontend"
+# Frontend is at project_root/frontend/
+FRONTEND_DIR = BASE_DIR / "frontend"
 TEMPLATES_DIR = FRONTEND_DIR / "templates"
 STATIC_DIR = FRONTEND_DIR / "static"
 
