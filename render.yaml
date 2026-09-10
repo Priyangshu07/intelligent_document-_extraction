@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: findoc-ai
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && PYTHONPATH=$(pwd) uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: AI_PROVIDER
+        value: google
+      - key: AI_MODEL
+        value: gemini-3.6-flash
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: findoc-db
+          property: connectionString
+      - key: MAX_PAGES
+        value: 3
+      - key: VALIDATION_ABS_TOLERANCE
+        value: 1.0
+      - key: VALIDATION_REL_TOLERANCE
+        value: 0.005
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHONPATH
+        value: /opt/render/project/src/backend
+
+databases:
+  - name: findoc-db
+    databaseName: docai
+    user: docai
+    plan: free
+    region: oregon

@@ -1,0 +1,236 @@
+{
+  "document_name": "X51005361895.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS"
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "1CR0576494",
+      "page_number": 1,
+      "evidence": "TRN: 1CR0576494"
+    },
+    "invoice_date": {
+      "value": "2018-01-25",
+      "page_number": 1,
+      "evidence": "25/01/2018"
+    },
+    "due_date": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "vendor_name": {
+      "value": "FUYI MINI MARKET",
+      "page_number": 1,
+      "evidence": "FUYI MINI MARKET"
+    },
+    "vendor_address": {
+      "value": "NO 43-45-47G, TAMAN SEJATI, IJOK, 45600 BESTARI JAYA, KUALA SELANGOR.",
+      "page_number": 1,
+      "evidence": "NO 43-45-47G, TAMAN SEJATI, IJOK, 45600 BESTARI JAYA, KUALA SELANGOR."
+    },
+    "vendor_tax_id": {
+      "value": "001601310720",
+      "page_number": 1,
+      "evidence": "001601310720"
+    },
+    "customer_name": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "customer_address": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "billing_address": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "shipping_address": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "purchase_order": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "reference_number": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "currency": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "currency_symbol": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "payment_terms": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "IBAN": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "subtotal": {
+      "value": 8.49,
+      "page_number": 1,
+      "evidence": "8.49"
+    },
+    "tax_amount": {
+      "value": 0.51,
+      "page_number": 1,
+      "evidence": "0.51"
+    },
+    "tax_rate": {
+      "value": 6.0,
+      "page_number": 1,
+      "evidence": "6%"
+    },
+    "discount": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "shipping": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "total_amount": {
+      "value": 9.0,
+      "page_number": 1,
+      "evidence": "9.00"
+    },
+    "amount_paid": {
+      "value": 50.0,
+      "page_number": 1,
+      "evidence": "Cash 50.00"
+    },
+    "balance_due": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "notes": {
+      "value": null,
+      "page_number": null,
+      "evidence": null
+    },
+    "line_items": [
+      {
+        "description": "013 SUMMER CUP 48X230ML",
+        "quantity": 1.0,
+        "unit": "KOTAK",
+        "unit_price": 8.49,
+        "net_amount": 8.49,
+        "tax_rate": 6.0,
+        "tax_amount": 0.51,
+        "gross_amount": 9.0,
+        "page_number": 1,
+        "evidence": "013 SUMMER CUP 48X230ML\n1 KOTAK 8.49 8.49 9.00 SR\nGST 6% + 0.51"
+      }
+    ],
+    "tax_summary": null,
+    "other_fields": {
+      "business_registration_number": "0195932-X",
+      "counter": "1",
+      "cashier": "HOCK",
+      "change": 41.0
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_item_1_quantity_x_price",
+        "formula": "quantity \u00d7 unit_price",
+        "operands": {
+          "quantity": 1.0,
+          "unit_price": 8.49
+        },
+        "calculated_value": 8.49,
+        "reported_value": 8.49,
+        "variance": 0.0,
+        "tolerance": 1.0,
+        "status": "PASS"
+      },
+      {
+        "name": "sum_line_items_equals_subtotal",
+        "formula": "\u03a3(line_net_amounts) \u2248 subtotal",
+        "operands": {
+          "sum_line_items": 8.49,
+          "reported_subtotal": 8.49
+        },
+        "calculated_value": 8.49,
+        "reported_value": 8.49,
+        "variance": 0.0,
+        "tolerance": 1.0,
+        "status": "PASS"
+      },
+      {
+        "name": "invoice_total_check",
+        "formula": "subtotal + tax_amount - discount \u2248 total_amount",
+        "operands": {
+          "subtotal": 8.49,
+          "tax_amount": 0.51,
+          "discount": 0.0
+        },
+        "calculated_value": 9.0,
+        "reported_value": 9.0,
+        "variance": 0.0,
+        "tolerance": 1.0,
+        "status": "PASS"
+      },
+      {
+        "name": "balance_due_check",
+        "formula": "total_amount - amount_paid \u2248 balance_due",
+        "operands": {
+          "reason": "amount_paid or balance_due missing"
+        },
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE"
+      }
+    ],
+    "overall_status": "PASS",
+    "issues": []
+  },
+  "completeness": {
+    "completeness_status": "OK",
+    "potential_missing_fields": [],
+    "notes": null
+  },
+  "processing_metadata": {
+    "ocr_used": true,
+    "ai_provider": "google",
+    "ai_model": "gemini-3.6-flash",
+    "processed_at": "2026-09-10T09:13:06.269575+00:00",
+    "processing_time_ms": 29430
+  },
+  "error": null
+}

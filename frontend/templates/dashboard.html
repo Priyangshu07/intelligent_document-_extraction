@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Financial Document Intelligence Platform - Extract, validate and analyze financial documents with AI">
+  <title>FinDoc AI — Financial Document Intelligence Platform</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">
+      <div class="icon">📊</div>
+      <span>FinDoc <span style="color: var(--accent-primary)">AI</span></span>
+    </div>
+    <div class="navbar-links">
+      <a href="/" class="nav-link active">Dashboard</a>
+      <a href="/docs" class="nav-link" target="_blank">API Docs</a>
+      <a href="/api/v1/health" class="nav-link" target="_blank">Health</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loadingText">Processing document...</div>
+  <div style="font-size:0.8rem; color: var(--text-muted); margin-top:8px">
+    AI extraction may take 20–60 seconds
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">Financial Document Intelligence</h1>
+    <p class="page-subtitle">Extract, validate and analyze invoices, balance sheets, P&amp;L and cash flow statements with AI</p>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-value" id="statTotal">—</div>
+      <div class="stat-label">Total Processed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statPass" style="color: var(--color-pass); -webkit-text-fill-color: var(--color-pass);">—</div>
+      <div class="stat-label">PASS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statFail" style="color: var(--color-fail); -webkit-text-fill-color: var(--color-fail);">—</div>
+      <div class="stat-label">FAILED</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statTypes">4</div>
+      <div class="stat-label">Document Types</div>
+    </div>
+  </div>
+
+  <!-- Upload + Form Section -->
+  <div class="upload-section">
+
+    <!-- Upload Form Card -->
+    <div class="card">
+      <div class="card-title">📤 Process New Document</div>
+
+      <div id="alertContainer"></div>
+
+      <form id="uploadForm">
+        <div class="form-group">
+          <label class="form-label" for="documentType">Document Type *</label>
+          <select id="documentType" name="document_type" class="form-select" required>
+            <option value="">— Select document type —</option>
+            <option value="invoice">📄 Invoice</option>
+            <option value="balance_sheet">📊 Balance Sheet</option>
+            <option value="profit_and_loss">📈 Profit &amp; Loss</option>
+            <option value="cash_flow_statement">💰 Cash Flow Statement</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Document File * (PDF / JPG / PNG — max 3 pages)</label>
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" name="file" accept=".pdf,.jpg,.jpeg,.png" required>
+            <div class="dropzone-icon">📁</div>
+            <div class="dropzone-text">
+              Drop your document here or <span>browse</span>
+            </div>
+            <div class="dropzone-hint">Supports PDF, JPG, PNG · Maximum 3 pages</div>
+          </div>
+          <div id="fileInfo" style="display:none" class="file-selected">
+            <span>📄</span>
+            <span id="fileName"></span>
+            <span id="fileSize" style="margin-left:auto; color: var(--text-muted); font-size:0.8rem;"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="processBtn" style="width:100%">
+          ⚡ Process Document
+        </button>
+      </form>
+    </div>
+
+    <!-- Info Card -->
+    <div class="card">
+      <div class="card-title">ℹ️ Processing Pipeline</div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="pipeline-step" style="display:flex; align-items:center; gap:12px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+          <div style="color:var(--accent-primary); font-size:1.1rem;">1️⃣</div>
+          <div>
+            <div style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">File Validation</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Magic bytes, page count, corruption check</div>
+          </div>
+        </div>
+        <div class="pipeline-step" style="display:flex; align-items:center; gap:12px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+          <div style="font-size:1.1rem;">2️⃣</div>
+          <div>
+            <div style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">OCR / Text Extraction</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Native PDF text or image rendering for scanned docs</div>
+          </div>
+        </div>
+        <div class="pipeline-step" style="display:flex; align-items:center; gap:12px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+          <div style="font-size:1.1rem;">3️⃣</div>
+          <div>
+            <div style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">AI Extraction</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Vision LLM extracts structured data with evidence</div>
+          </div>
+        </div>
+        <div class="pipeline-step" style="display:flex; align-items:center; gap:12px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+          <div style="font-size:1.1rem;">4️⃣</div>
+          <div>
+            <div style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">Financial Validation</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Deterministic arithmetic checks — PASS / FAIL / N/A</div>
+          </div>
+        </div>
+        <div class="pipeline-step" style="display:flex; align-items:center; gap:12px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+          <div style="font-size:1.1rem;">5️⃣</div>
+          <div>
+            <div style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">PostgreSQL Persistence</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Results stored with full JSON extraction data</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Document List -->
+  <div class="card">
+    <div class="card-title" style="justify-content:space-between;">
+      <span>📋 Processed Documents</span>
+      <button class="btn btn-secondary btn-sm" onclick="loadDocuments()">🔄 Refresh</button>
+    </div>
+
+    <div id="documentsContainer">
+      <div class="empty-state">
+        <div class="empty-state-icon">📂</div>
+        <h3>No documents processed yet</h3>
+        <p>Upload a document above to get started</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

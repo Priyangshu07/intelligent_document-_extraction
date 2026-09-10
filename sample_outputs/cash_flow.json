@@ -1,0 +1,760 @@
+{
+  "document_name": "Consolidated_Cash_Flow_Statement_2017.pdf",
+  "document_type": "cash_flow_statement",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 2,
+    "status": "PASS"
+  },
+  "extracted_data": {
+    "statement_title": {
+      "value": "Consolidated Cash Flow Statement",
+      "page_number": 1,
+      "evidence": "Consolidated Cash Flow Statement"
+    },
+    "company_name": {
+      "value": "HDFC Bank Limited",
+      "page_number": 1,
+      "evidence": "HDFC Bank Limited Annual Report 2016-17"
+    },
+    "periods": [
+      "31-Mar-17",
+      "31-Mar-16"
+    ],
+    "currency": {
+      "value": "INR",
+      "page_number": 1,
+      "evidence": "\u20b9 in '000"
+    },
+    "unit": {
+      "value": "\u20b9 in '000",
+      "page_number": 1,
+      "evidence": "\u20b9 in '000"
+    },
+    "operating_cash_flow": {
+      "label": "Net cash flow (used in) / from operating activities",
+      "normalized_key": "operating_cash_flow",
+      "values": {
+        "31-Mar-17": 172815931,
+        "31-Mar-16": -344353663
+      },
+      "page_number": 1,
+      "evidence": "Net cash flow (used in) / from operating activities 172,815,931 (344,353,663)"
+    },
+    "investing_cash_flow": {
+      "label": "Net cash used in investing activities",
+      "normalized_key": "investing_cash_flow",
+      "values": {
+        "31-Mar-17": -11476802,
+        "31-Mar-16": -8655510
+      },
+      "page_number": 1,
+      "evidence": "Net cash used in investing activities (11,476,802) (8,655,510)"
+    },
+    "financing_cash_flow": {
+      "label": "Net cash generated from financing activities",
+      "normalized_key": "financing_cash_flow",
+      "values": {
+        "31-Mar-17": -58929743,
+        "31-Mar-16": 378151341
+      },
+      "page_number": 2,
+      "evidence": "Net cash generated from financing activities (58,929,743) 378,151,341"
+    },
+    "fx_adjustment": {
+      "label": "Effect of exchange fluctuation on translation reserve",
+      "normalized_key": "fx_adjustment",
+      "values": {
+        "31-Mar-17": -282622,
+        "31-Mar-16": 282433
+      },
+      "page_number": 2,
+      "evidence": "Effect of exchange fluctuation on translation reserve (282,622) 282,433"
+    },
+    "net_change_in_cash": {
+      "label": "Net increase / (decrease) in cash and cash equivalents",
+      "normalized_key": "net_change_in_cash",
+      "values": {
+        "31-Mar-17": 102422381,
+        "31-Mar-16": 25424601
+      },
+      "page_number": 2,
+      "evidence": "Net increase / (decrease) in cash and cash equivalents 102,422,381 25,424,601"
+    },
+    "opening_cash": {
+      "label": "Cash and cash equivalents as at April 1st (Schedules 6 and 7)",
+      "normalized_key": "opening_cash",
+      "values": {
+        "31-Mar-17": 390688815,
+        "31-Mar-16": 365264214
+      },
+      "page_number": 2,
+      "evidence": "Cash and cash equivalents as at April 1st (Schedules 6 and 7) 390,688,815 365,264,214"
+    },
+    "closing_cash": {
+      "label": "Cash and cash equivalents as at March 31st (Schedules 6 and 7)",
+      "normalized_key": "closing_cash",
+      "values": {
+        "31-Mar-17": 493111196,
+        "31-Mar-16": 390688815
+      },
+      "page_number": 2,
+      "evidence": "Cash and cash equivalents as at March 31st (Schedules 6 and 7) 493,111,196 390,688,815"
+    },
+    "cash_acquired_on_amalgamation": {
+      "label": "Cash and cash equivalents on amalgamation [Refer Schedule 18(1)]",
+      "normalized_key": "cash_acquired_on_amalgamation",
+      "values": {
+        "31-Mar-17": 295617,
+        "31-Mar-16": null
+      },
+      "page_number": 2,
+      "evidence": "Cash and cash equivalents on amalgamation [Refer Schedule 18(1)] 295,617 -"
+    },
+    "line_items": [
+      {
+        "label": "Consolidated profit before income tax",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 233311478,
+          "31-Mar-16": 194949948
+        },
+        "page_number": 1,
+        "evidence": "Consolidated profit before income tax 233,311,478 194,949,948"
+      },
+      {
+        "label": "Depreciation on fixed assets",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 8861876,
+          "31-Mar-16": 7380326
+        },
+        "page_number": 1,
+        "evidence": "Depreciation on fixed assets 8,861,876 7,380,326"
+      },
+      {
+        "label": "(Profit) / loss on revaluation of investments",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -87543,
+          "31-Mar-16": 173689
+        },
+        "page_number": 1,
+        "evidence": "(Profit) / loss on revaluation of investments (87,543) 173,689"
+      },
+      {
+        "label": "Amortisation of premia on held to maturity investments",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 1756569,
+          "31-Mar-16": 1002801
+        },
+        "page_number": 1,
+        "evidence": "Amortisation of premia on held to maturity investments 1,756,569 1,002,801"
+      },
+      {
+        "label": "(Profit) / loss on sale of fixed assets",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 16229,
+          "31-Mar-16": 1185
+        },
+        "page_number": 1,
+        "evidence": "(Profit) / loss on sale of fixed assets 16,229 1,185"
+      },
+      {
+        "label": "Provision / charge for non performing assets",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 37024296,
+          "31-Mar-16": 25179864
+        },
+        "page_number": 1,
+        "evidence": "Provision / charge for non performing assets 37,024,296 25,179,864"
+      },
+      {
+        "label": "Provision for diminution in value of Investments",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -76417,
+          "31-Mar-16": 146543
+        },
+        "page_number": 1,
+        "evidence": "Provision for diminution in value of Investments (76,417) 146,543"
+      },
+      {
+        "label": "Floating provisions",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 250000,
+          "31-Mar-16": 1150000
+        },
+        "page_number": 1,
+        "evidence": "Floating provisions 250,000 1,150,000"
+      },
+      {
+        "label": "Provision for standard assets",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 4312322,
+          "31-Mar-16": 4648890
+        },
+        "page_number": 1,
+        "evidence": "Provision for standard assets 4,312,322 4,648,890"
+      },
+      {
+        "label": "Contingency provisions",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 388440,
+          "31-Mar-16": 218602
+        },
+        "page_number": 1,
+        "evidence": "Contingency provisions 388,440 218,602"
+      },
+      {
+        "label": "Share in current year's profits of associates",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -23393,
+          "31-Mar-16": -37278
+        },
+        "page_number": 1,
+        "evidence": "Share in current year's profits of associates (23,393) (37,278)"
+      },
+      {
+        "label": "(Increase) / decrease in investments (excluding investments in subsidiaries)",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -173257700,
+          "31-Mar-16": -391159616
+        },
+        "page_number": 1,
+        "evidence": "(Increase) / decrease in investments (excluding investments in subsidiaries) (173,257,700) (391,159,616)"
+      },
+      {
+        "label": "(Increase) / decrease in advances",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -1018904990,
+          "31-Mar-16": -1066012996
+        },
+        "page_number": 1,
+        "evidence": "(Increase) / decrease in advances (1,018,904,990) (1,066,012,996)"
+      },
+      {
+        "label": "Increase / (decrease) in deposits",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 972609590,
+          "31-Mar-16": 955896412
+        },
+        "page_number": 1,
+        "evidence": "Increase / (decrease) in deposits 972,609,590 955,896,412"
+      },
+      {
+        "label": "(Increase) / decrease in other assets",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -44855329,
+          "31-Mar-16": -38485747
+        },
+        "page_number": 1,
+        "evidence": "(Increase) / decrease in other assets (44,855,329) (38,485,747)"
+      },
+      {
+        "label": "Increase / (decrease) in other liabilities and provisions",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 228337692,
+          "31-Mar-16": 31324658
+        },
+        "page_number": 1,
+        "evidence": "Increase / (decrease) in other liabilities and provisions 228,337,692 31,324,658"
+      },
+      {
+        "label": "Direct taxes paid (net of refunds)",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -76847189,
+          "31-Mar-16": -70730944
+        },
+        "page_number": 1,
+        "evidence": "Direct taxes paid (net of refunds) (76,847,189) (70,730,944)"
+      },
+      {
+        "label": "Net cash flow (used in) / from operating activities",
+        "section": "OPERATING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 172815931,
+          "31-Mar-16": -344353663
+        },
+        "page_number": 1,
+        "evidence": "Net cash flow (used in) / from operating activities 172,815,931 (344,353,663)"
+      },
+      {
+        "label": "Purchase of fixed assets",
+        "section": "INVESTING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -11577570,
+          "31-Mar-16": -8771635
+        },
+        "page_number": 1,
+        "evidence": "Purchase of fixed assets (11,577,570) (8,771,635)"
+      },
+      {
+        "label": "Proceeds from sale of fixed assets",
+        "section": "INVESTING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 100768,
+          "31-Mar-16": 116125
+        },
+        "page_number": 1,
+        "evidence": "Proceeds from sale of fixed assets 100,768 116,125"
+      },
+      {
+        "label": "Investment in subsidiaries and / or joint ventures",
+        "section": "INVESTING ACTIVITIES",
+        "values": {
+          "31-Mar-17": null,
+          "31-Mar-16": null
+        },
+        "page_number": 1,
+        "evidence": "Investment in subsidiaries and / or joint ventures - -"
+      },
+      {
+        "label": "Net cash used in investing activities",
+        "section": "INVESTING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -11476802,
+          "31-Mar-16": -8655510
+        },
+        "page_number": 1,
+        "evidence": "Net cash used in investing activities (11,476,802) (8,655,510)"
+      },
+      {
+        "label": "Increase in minority interest",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 818605,
+          "31-Mar-16": 189954
+        },
+        "page_number": 2,
+        "evidence": "Increase in minority interest 818,605 189,954"
+      },
+      {
+        "label": "Money received on exercise of stock options by employees",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": 22615161,
+          "31-Mar-16": 12229008
+        },
+        "page_number": 2,
+        "evidence": "Money received on exercise of stock options by employees 22,615,161 12,229,008"
+      },
+      {
+        "label": "Increase / (decrease) in borrowings (excluding subordinate debt, perpetual debt and upper tier II instruments)",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -33898658,
+          "31-Mar-16": 402081134
+        },
+        "page_number": 2,
+        "evidence": "Increase / (decrease) in borrowings (excluding subordinate debt, perpetual debt and upper tier II instruments) (33,898,658) 402,081,134"
+      },
+      {
+        "label": "Redemption of subordinated debt",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -19084500,
+          "31-Mar-16": -12020000
+        },
+        "page_number": 2,
+        "evidence": "Redemption of subordinated debt (19,084,500) (12,020,000)"
+      },
+      {
+        "label": "Dividend paid during the year",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -24083093,
+          "31-Mar-16": -20091666
+        },
+        "page_number": 2,
+        "evidence": "Dividend paid during the year (24,083,093) (20,091,666)"
+      },
+      {
+        "label": "Tax on dividend",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -5297258,
+          "31-Mar-16": -4237089
+        },
+        "page_number": 2,
+        "evidence": "Tax on dividend (5,297,258) (4,237,089)"
+      },
+      {
+        "label": "Net cash generated from financing activities",
+        "section": "FINANCING ACTIVITIES",
+        "values": {
+          "31-Mar-17": -58929743,
+          "31-Mar-16": 378151341
+        },
+        "page_number": 2,
+        "evidence": "Net cash generated from financing activities (58,929,743) 378,151,341"
+      }
+    ],
+    "sections": {
+      "OPERATING ACTIVITIES": [
+        {
+          "label": "Consolidated profit before income tax",
+          "values": {
+            "31-Mar-17": 233311478,
+            "31-Mar-16": 194949948
+          },
+          "page_number": 1,
+          "evidence": "Consolidated profit before income tax 233,311,478 194,949,948"
+        },
+        {
+          "label": "Depreciation on fixed assets",
+          "values": {
+            "31-Mar-17": 8861876,
+            "31-Mar-16": 7380326
+          },
+          "page_number": 1,
+          "evidence": "Depreciation on fixed assets 8,861,876 7,380,326"
+        },
+        {
+          "label": "(Profit) / loss on revaluation of investments",
+          "values": {
+            "31-Mar-17": -87543,
+            "31-Mar-16": 173689
+          },
+          "page_number": 1,
+          "evidence": "(Profit) / loss on revaluation of investments (87,543) 173,689"
+        },
+        {
+          "label": "Amortisation of premia on held to maturity investments",
+          "values": {
+            "31-Mar-17": 1756569,
+            "31-Mar-16": 1002801
+          },
+          "page_number": 1,
+          "evidence": "Amortisation of premia on held to maturity investments 1,756,569 1,002,801"
+        },
+        {
+          "label": "(Profit) / loss on sale of fixed assets",
+          "values": {
+            "31-Mar-17": 16229,
+            "31-Mar-16": 1185
+          },
+          "page_number": 1,
+          "evidence": "(Profit) / loss on sale of fixed assets 16,229 1,185"
+        },
+        {
+          "label": "Provision / charge for non performing assets",
+          "values": {
+            "31-Mar-17": 37024296,
+            "31-Mar-16": 25179864
+          },
+          "page_number": 1,
+          "evidence": "Provision / charge for non performing assets 37,024,296 25,179,864"
+        },
+        {
+          "label": "Provision for diminution in value of Investments",
+          "values": {
+            "31-Mar-17": -76417,
+            "31-Mar-16": 146543
+          },
+          "page_number": 1,
+          "evidence": "Provision for diminution in value of Investments (76,417) 146,543"
+        },
+        {
+          "label": "Floating provisions",
+          "values": {
+            "31-Mar-17": 250000,
+            "31-Mar-16": 1150000
+          },
+          "page_number": 1,
+          "evidence": "Floating provisions 250,000 1,150,000"
+        },
+        {
+          "label": "Provision for standard assets",
+          "values": {
+            "31-Mar-17": 4312322,
+            "31-Mar-16": 4648890
+          },
+          "page_number": 1,
+          "evidence": "Provision for standard assets 4,312,322 4,648,890"
+        },
+        {
+          "label": "Contingency provisions",
+          "values": {
+            "31-Mar-17": 388440,
+            "31-Mar-16": 218602
+          },
+          "page_number": 1,
+          "evidence": "Contingency provisions 388,440 218,602"
+        },
+        {
+          "label": "Share in current year's profits of associates",
+          "values": {
+            "31-Mar-17": -23393,
+            "31-Mar-16": -37278
+          },
+          "page_number": 1,
+          "evidence": "Share in current year's profits of associates (23,393) (37,278)"
+        },
+        {
+          "label": "(Increase) / decrease in investments (excluding investments in subsidiaries)",
+          "values": {
+            "31-Mar-17": -173257700,
+            "31-Mar-16": -391159616
+          },
+          "page_number": 1,
+          "evidence": "(Increase) / decrease in investments (excluding investments in subsidiaries) (173,257,700) (391,159,616)"
+        },
+        {
+          "label": "(Increase) / decrease in advances",
+          "values": {
+            "31-Mar-17": -1018904990,
+            "31-Mar-16": -1066012996
+          },
+          "page_number": 1,
+          "evidence": "(Increase) / decrease in advances (1,018,904,990) (1,066,012,996)"
+        },
+        {
+          "label": "Increase / (decrease) in deposits",
+          "values": {
+            "31-Mar-17": 972609590,
+            "31-Mar-16": 955896412
+          },
+          "page_number": 1,
+          "evidence": "Increase / (decrease) in deposits 972,609,590 955,896,412"
+        },
+        {
+          "label": "(Increase) / decrease in other assets",
+          "values": {
+            "31-Mar-17": -44855329,
+            "31-Mar-16": -38485747
+          },
+          "page_number": 1,
+          "evidence": "(Increase) / decrease in other assets (44,855,329) (38,485,747)"
+        },
+        {
+          "label": "Increase / (decrease) in other liabilities and provisions",
+          "values": {
+            "31-Mar-17": 228337692,
+            "31-Mar-16": 31324658
+          },
+          "page_number": 1,
+          "evidence": "Increase / (decrease) in other liabilities and provisions 228,337,692 31,324,658"
+        },
+        {
+          "label": "Direct taxes paid (net of refunds)",
+          "values": {
+            "31-Mar-17": -76847189,
+            "31-Mar-16": -70730944
+          },
+          "page_number": 1,
+          "evidence": "Direct taxes paid (net of refunds) (76,847,189) (70,730,944)"
+        },
+        {
+          "label": "Net cash flow (used in) / from operating activities",
+          "values": {
+            "31-Mar-17": 172815931,
+            "31-Mar-16": -344353663
+          },
+          "page_number": 1,
+          "evidence": "Net cash flow (used in) / from operating activities 172,815,931 (344,353,663)"
+        }
+      ],
+      "INVESTING ACTIVITIES": [
+        {
+          "label": "Purchase of fixed assets",
+          "values": {
+            "31-Mar-17": -11577570,
+            "31-Mar-16": -8771635
+          },
+          "page_number": 1,
+          "evidence": "Purchase of fixed assets (11,577,570) (8,771,635)"
+        },
+        {
+          "label": "Proceeds from sale of fixed assets",
+          "values": {
+            "31-Mar-17": 100768,
+            "31-Mar-16": 116125
+          },
+          "page_number": 1,
+          "evidence": "Proceeds from sale of fixed assets 100,768 116,125"
+        },
+        {
+          "label": "Investment in subsidiaries and / or joint ventures",
+          "values": {
+            "31-Mar-17": null,
+            "31-Mar-16": null
+          },
+          "page_number": 1,
+          "evidence": "Investment in subsidiaries and / or joint ventures - -"
+        },
+        {
+          "label": "Net cash used in investing activities",
+          "values": {
+            "31-Mar-17": -11476802,
+            "31-Mar-16": -8655510
+          },
+          "page_number": 1,
+          "evidence": "Net cash used in investing activities (11,476,802) (8,655,510)"
+        }
+      ],
+      "FINANCING ACTIVITIES": [
+        {
+          "label": "Increase in minority interest",
+          "values": {
+            "31-Mar-17": 818605,
+            "31-Mar-16": 189954
+          },
+          "page_number": 2,
+          "evidence": "Increase in minority interest 818,605 189,954"
+        },
+        {
+          "label": "Money received on exercise of stock options by employees",
+          "values": {
+            "31-Mar-17": 22615161,
+            "31-Mar-16": 12229008
+          },
+          "page_number": 2,
+          "evidence": "Money received on exercise of stock options by employees 22,615,161 12,229,008"
+        },
+        {
+          "label": "Increase / (decrease) in borrowings (excluding subordinate debt, perpetual debt and upper tier II instruments)",
+          "values": {
+            "31-Mar-17": -33898658,
+            "31-Mar-16": 402081134
+          },
+          "page_number": 2,
+          "evidence": "Increase / (decrease) in borrowings (excluding subordinate debt, perpetual debt and upper tier II instruments) (33,898,658) 402,081,134"
+        },
+        {
+          "label": "Redemption of subordinated debt",
+          "values": {
+            "31-Mar-17": -19084500,
+            "31-Mar-16": -12020000
+          },
+          "page_number": 2,
+          "evidence": "Redemption of subordinated debt (19,084,500) (12,020,000)"
+        },
+        {
+          "label": "Dividend paid during the year",
+          "values": {
+            "31-Mar-17": -24083093,
+            "31-Mar-16": -20091666
+          },
+          "page_number": 2,
+          "evidence": "Dividend paid during the year (24,083,093) (20,091,666)"
+        },
+        {
+          "label": "Tax on dividend",
+          "values": {
+            "31-Mar-17": -5297258,
+            "31-Mar-16": -4237089
+          },
+          "page_number": 2,
+          "evidence": "Tax on dividend (5,297,258) (4,237,089)"
+        },
+        {
+          "label": "Net cash generated from financing activities",
+          "values": {
+            "31-Mar-17": -58929743,
+            "31-Mar-16": 378151341
+          },
+          "page_number": 2,
+          "evidence": "Net cash generated from financing activities (58,929,743) 378,151,341"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "net_cash_change_check_31-Mar-17",
+        "formula": "operating + investing + financing + fx \u2248 net_change_in_cash",
+        "operands": {
+          "operating_cash_flow": 172815931.0,
+          "investing_cash_flow": -11476802.0,
+          "financing_cash_flow": -58929743.0,
+          "fx_adjustment": -282622.0,
+          "period": "31-Mar-17"
+        },
+        "calculated_value": 102126764.0,
+        "reported_value": 102422381.0,
+        "variance": 295617.0,
+        "tolerance": 512111.905,
+        "status": "PASS"
+      },
+      {
+        "name": "closing_cash_check_31-Mar-17",
+        "formula": "opening_cash + net_change_in_cash + amalgamation \u2248 closing_cash",
+        "operands": {
+          "opening_cash": 390688815.0,
+          "net_change_in_cash": 102422381.0,
+          "cash_acquired_on_amalgamation": 295617.0,
+          "period": "31-Mar-17"
+        },
+        "calculated_value": 493406813.0,
+        "reported_value": 493111196.0,
+        "variance": 295617.0,
+        "tolerance": 2465555.98,
+        "status": "PASS"
+      },
+      {
+        "name": "net_cash_change_check_31-Mar-16",
+        "formula": "operating + investing + financing + fx \u2248 net_change_in_cash",
+        "operands": {
+          "operating_cash_flow": -344353663.0,
+          "investing_cash_flow": -8655510.0,
+          "financing_cash_flow": 378151341.0,
+          "fx_adjustment": 282433.0,
+          "period": "31-Mar-16"
+        },
+        "calculated_value": 25424601.0,
+        "reported_value": 25424601.0,
+        "variance": 0.0,
+        "tolerance": 127123.005,
+        "status": "PASS"
+      },
+      {
+        "name": "closing_cash_check_31-Mar-16",
+        "formula": "opening_cash + net_change_in_cash + amalgamation \u2248 closing_cash",
+        "operands": {
+          "opening_cash": 365264214.0,
+          "net_change_in_cash": 25424601.0,
+          "cash_acquired_on_amalgamation": null,
+          "period": "31-Mar-16"
+        },
+        "calculated_value": 390688815.0,
+        "reported_value": 390688815.0,
+        "variance": 0.0,
+        "tolerance": 1953444.075,
+        "status": "PASS"
+      }
+    ],
+    "overall_status": "PASS",
+    "issues": []
+  },
+  "completeness": {
+    "completeness_status": "OK",
+    "potential_missing_fields": [],
+    "notes": null
+  },
+  "processing_metadata": {
+    "ocr_used": true,
+    "ai_provider": "google",
+    "ai_model": "gemini-3.6-flash",
+    "processed_at": "2026-09-10T09:16:04.153069+00:00",
+    "processing_time_ms": 94081
+  },
+  "error": null
+}

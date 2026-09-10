@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Result — FinDoc AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">
+      <div class="icon">📊</div>
+      <span>FinDoc <span style="color: var(--accent-primary)">AI</span></span>
+    </div>
+    <div class="navbar-links">
+      <a href="/" class="nav-link">← Dashboard</a>
+      <a href="/docs" class="nav-link" target="_blank">API Docs</a>
+    </div>
+  </div>
+</nav>
+
+<div class="main-content">
+
+  <!-- Breadcrumb -->
+  <div style="margin-bottom:20px; font-size:0.875rem; color:var(--text-muted);">
+    <a href="/">Dashboard</a>
+    <span style="margin:0 8px;">›</span>
+    <span id="breadcrumbName" style="color:var(--text-primary);"></span>
+  </div>
+
+  <!-- Loading -->
+  <div id="resultLoading" class="card" style="text-align:center; padding:48px;">
+    <div class="spinner" style="margin:0 auto 16px;"></div>
+    <div style="color:var(--text-secondary);">Loading result...</div>
+  </div>
+
+  <!-- Error -->
+  <div id="resultError" style="display:none;">
+    <div class="alert alert-error">
+      <span>⚠️</span>
+      <span id="resultErrorMsg"></span>
+    </div>
+  </div>
+
+  <!-- Result Content -->
+  <div id="resultContent" style="display:none;">
+
+    <!-- Header Row -->
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;">
+      <div>
+        <h1 class="page-title" id="docName" style="font-size:1.4rem;"></h1>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:8px; flex-wrap:wrap;">
+          <span id="docTypeBadge" class="badge badge-info"></span>
+          <span id="processingStatusBadge"></span>
+          <span id="validationStatusBadge"></span>
+          <span id="ocrBadge"></span>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn btn-secondary btn-sm" onclick="toggleJsonViewer()">{ } Raw JSON</button>
+        <a href="/" class="btn btn-secondary btn-sm">← Back</a>
+      </div>
+    </div>
+
+    <!-- Completeness Warning -->
+    <div id="completenessWarning" style="display:none; margin-bottom:16px;">
+      <div class="alert alert-warning">
+        <span>⚠️</span>
+        <div>
+          <strong>Completeness Warning:</strong>
+          <span id="completenessMsg"></span>
+          <div id="missingFields" style="margin-top:4px; font-family:var(--font-mono); font-size:0.8rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('file')">📁 File Info</div>
+      <div class="tab" onclick="switchTab('extraction')">🔍 Extraction</div>
+      <div class="tab" onclick="switchTab('validation')">✅ Validation</div>
+      <div class="tab" onclick="switchTab('json')">{ } JSON</div>
+    </div>
+
+    <!-- Tab: File Info -->
+    <div id="tab-file" class="tab-content active">
+      <div class="card">
+        <div class="card-title">File Validation</div>
+        <div class="field-grid" id="fileValidationGrid"></div>
+        <div class="card-title" style="margin-top:16px;">Processing Metadata</div>
+        <div class="field-grid" id="metadataGrid"></div>
+      </div>
+    </div>
+
+    <!-- Tab: Extraction -->
+    <div id="tab-extraction" class="tab-content">
+      <div id="extractionContent"></div>
+    </div>
+
+    <!-- Tab: Validation -->
+    <div id="tab-validation" class="tab-content">
+      <div class="card">
+        <div class="card-title">Financial Validation Checks</div>
+        <div id="validationChecks"></div>
+      </div>
+    </div>
+
+    <!-- Tab: JSON -->
+    <div id="tab-json" class="tab-content">
+      <div class="card">
+        <div class="card-title" style="justify-content:space-between;">
+          <span>{ } Raw JSON Response</span>
+          <button class="btn btn-secondary btn-sm" onclick="copyJson()">📋 Copy</button>
+        </div>
+        <div class="json-viewer" id="jsonViewer"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ============================================================
+// Document Result Page JS
+// ============================================================
+
+const documentName = decodeURIComponent(window.location.pathname.split('/document/')[1] || '');
+let fullResult = null;
+
+document.getElementById('breadcrumbName').textContent = documentName;
+
+async function loadResult() {
+  try {
+    const resp = await fetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
+    if (!resp.ok) {
+      const err = await resp.json();
+      showError(err.error?.message || 'Document not found');
+      return;
+    }
+    fullResult = await resp.json();
+    renderResult(fullResult);
+  } catch (e) {
+    showError('Failed to load document result: ' + e.message);
+  }
+}
+
+function showError(msg) {
+  document.getElementById('resultLoading').style.display = 'none';
+  document.getElementById('resultError').style.display = 'block';
+  document.getElementById('resultErrorMsg').textContent = msg;
+}
+
+function renderResult(data) {
+  document.getElementById('resultLoading').style.display = 'none';
+  document.getElementById('resultContent').style.display = 'block';
+
+  // Header
+  document.getElementById('docName').textContent = data.document_name;
+  document.getElementById('docTypeBadge').textContent = formatDocType(data.document_type);
+
+  // Processing status
+  const psEl = document.getElementById('processingStatusBadge');
+  const ps = data.processing_status;
+  psEl.innerHTML = `<span class="badge badge-${ps === 'PASS' ? 'pass' : 'fail'}">${ps}</span>`;
+
+  // Validation status
+  const vs = data.validation?.overall_status;
+  if (vs) {
+    const vsEl = document.getElementById('validationStatusBadge');
+    const cls = vs === 'PASS' ? 'pass' : vs === 'FAIL' ? 'fail' : 'na';
+    vsEl.innerHTML = `<span class="badge badge-${cls}">Validation: ${vs}</span>`;
+  }
+
+  // OCR badge
+  const md = data.processing_metadata;
+  if (md?.ocr_used) {
+    document.getElementById('ocrBadge').innerHTML = '<span class="badge badge-info">OCR Used</span>';
+  }
+
+  // Completeness warning
+  const comp = data.completeness;
+  if (comp?.completeness_status === 'WARNING') {
+    document.getElementById('completenessWarning').style.display = 'block';
+    document.getElementById('completenessMsg').textContent = ' Potential extraction omissions detected.';
+    const mf = comp.potential_missing_fields || [];
+    if (mf.length > 0) {
+      document.getElementById('missingFields').textContent = 'Potential missing: ' + mf.join(', ');
+    }
+  }
+
+  // File validation grid
+  const fv = data.file_validation || {};
+  renderFieldGrid('fileValidationGrid', [
+    { label: 'File Type', value: fv.file_type || 'N/A' },
+    { label: 'Supported', value: fv.is_supported ? '✅ Yes' : '❌ No' },
+    { label: 'Readable', value: fv.is_readable ? '✅ Yes' : '❌ No' },
+    { label: 'Page Count', value: fv.page_count != null ? fv.page_count : 'N/A' },
+    { label: 'Status', value: fv.status || 'N/A' },
+  ]);
+
+  // Metadata grid
+  const items = [];
+  if (md) {
+    items.push({ label: 'Processed At', value: md.processed_at ? new Date(md.processed_at).toLocaleString() : 'N/A' });
+    items.push({ label: 'Processing Time', value: md.processing_time_ms ? md.processing_time_ms + ' ms' : 'N/A' });
+    items.push({ label: 'OCR Used', value: md.ocr_used ? 'Yes' : 'No' });
+    items.push({ label: 'AI Provider', value: md.ai_provider || 'N/A' });
+    items.push({ label: 'AI Model', value: md.ai_model || 'N/A' });
+  }
+  renderFieldGrid('metadataGrid', items);
+
+  // Extraction
+  renderExtraction(data.document_type, data.extracted_data);
+
+  // Validation
+  renderValidation(data.validation);
+
+  // JSON viewer
+  document.getElementById('jsonViewer').textContent = JSON.stringify(data, null, 2);
+}
+
+function renderFieldGrid(containerId, fields) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  fields.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'field-item';
+    div.innerHTML = `<div class="field-label">${f.label}</div><div class="field-value">${escHtml(String(f.value))}</div>`;
+    container.appendChild(div);
+  });
+}
+
+function renderExtraction(docType, extracted) {
+  const container = document.getElementById('extractionContent');
+  if (!extracted) {
+    container.innerHTML = '<div class="card"><div class="empty-state"><div class="empty-state-icon">📭</div><h3>No extraction data</h3><p>Extraction may have failed or returned no results.</p></div></div>';
+    return;
+  }
+
+  if (docType === 'invoice') {
+    renderInvoiceExtraction(container, extracted);
+  } else {
+    renderFinancialStatementExtraction(container, extracted);
+  }
+}
+
+function renderInvoiceExtraction(container, data) {
+  let html = '<div class="card"><div class="card-title">📄 Invoice Fields</div><div class="field-grid">';
+
+  const simpleFields = ['invoice_number','invoice_date','due_date','vendor_name','vendor_address',
+    'customer_name','customer_address','currency','currency_symbol','payment_terms','IBAN',
+    'subtotal','tax_amount','tax_rate','discount','shipping','total_amount','amount_paid','balance_due','notes'];
+
+  simpleFields.forEach(key => {
+    if (data[key] !== undefined) {
+      const f = data[key];
+      const val = f?.value;
+      const pg = f?.page_number;
+      const ev = f?.evidence;
+      const valDisplay = val !== null && val !== undefined ? escHtml(String(val)) : '<span class="null-value">null — not found</span>';
+      html += `
+        <div class="field-item">
+          <div class="field-label">${key.replace(/_/g,' ').toUpperCase()}</div>
+          <div class="field-value ${typeof val === 'number' ? 'number' : ''}">${valDisplay}</div>
+          <div class="field-meta">
+            ${pg != null ? `<span class="page-ref">p.${pg}</span>` : ''}
+            ${ev ? `<span class="evidence-tag" title="${escHtml(ev)}">📎 ${escHtml(ev.substring(0,40))}${ev.length > 40 ? '...' : ''}</span>` : ''}
+          </div>
+        </div>`;
+    }
+  });
+
+  html += '</div></div>';
+
+  // Line items
+  const lineItems = data.line_items || [];
+  if (lineItems.length > 0) {
+    html += `<div class="card" style="margin-top:16px;"><div class="card-title">📋 Line Items (${lineItems.length})</div>
+    <div class="table-container"><table>
+    <thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Net Amount</th><th>Tax Rate</th><th>Tax Amount</th><th>Gross Amount</th><th>Page</th></tr></thead>
+    <tbody>`;
+
+    lineItems.forEach(item => {
+      html += `<tr>
+        <td class="primary">${escHtml(item.description || '—')}</td>
+        <td class="number">${item.quantity ?? '—'}</td>
+        <td>${escHtml(item.unit || '—')}</td>
+        <td class="number">${item.unit_price != null ? item.unit_price.toLocaleString() : '—'}</td>
+        <td class="number">${item.net_amount != null ? item.net_amount.toLocaleString() : '—'}</td>
+        <td class="number">${item.tax_rate != null ? item.tax_rate : '—'}</td>
+        <td class="number">${item.tax_amount != null ? item.tax_amount.toLocaleString() : '—'}</td>
+        <td class="number">${item.gross_amount != null ? item.gross_amount.toLocaleString() : '—'}</td>
+        <td>${item.page_number || '—'}</td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+function renderFinancialStatementExtraction(container, data) {
+  let html = '';
+
+  // Summary fields
+  const periods = data.periods || [];
+  const summaryKeys = ['total_assets','total_liabilities','total_equity','total_capital_and_liabilities',
+    'interest_earned','other_income','total_income','interest_expended','operating_expenses',
+    'provisions_and_contingencies','total_expenditure','net_profit','minority_interest',
+    'consolidated_profit_attributable_to_group','earnings_per_equity_share_basic','earnings_per_equity_share_diluted',
+    'operating_cash_flow','investing_cash_flow','financing_cash_flow','fx_adjustment',
+    'net_change_in_cash','opening_cash','closing_cash','cash_acquired_on_amalgamation'];
+
+  const headerFields = ['statement_title','company_name','statement_date','currency','unit'];
+  const headerItems = [];
+  headerFields.forEach(k => {
+    if (data[k]) headerItems.push({ label: k.replace(/_/g,' ').toUpperCase(), value: data[k]?.value || 'N/A' });
+  });
+
+  if (headerItems.length > 0) {
+    html += '<div class="card"><div class="card-title">📋 Document Information</div><div class="field-grid">';
+    headerItems.forEach(f => {
+      html += `<div class="field-item"><div class="field-label">${f.label}</div><div class="field-value">${escHtml(String(f.value))}</div></div>`;
+    });
+    html += '</div></div>';
+  }
+
+  // Key summary line items
+  const summaryItems = [];
+  summaryKeys.forEach(key => {
+    if (data[key] && typeof data[key] === 'object' && data[key].values) {
+      summaryItems.push({ key, item: data[key] });
+    }
+  });
+
+  if (summaryItems.length > 0) {
+    html += `<div class="card" style="margin-top:16px;"><div class="card-title">📊 Key Financial Figures</div>
+    <div class="table-container"><table><thead><tr><th>Line Item</th>`;
+    periods.forEach(p => { html += `<th class="number">${escHtml(p)}</th>`; });
+    html += `<th>Evidence</th></tr></thead><tbody>`;
+
+    summaryItems.forEach(({ key, item }) => {
+      html += `<tr>
+        <td class="primary">${escHtml(item.label || key.replace(/_/g,' '))}</td>`;
+      periods.forEach(p => {
+        const v = item.values?.[p];
+        html += `<td class="number">${v != null ? formatNumber(v) : '<span class="null-value">null</span>'}</td>`;
+      });
+      const ev = item.evidence;
+      html += `<td>${ev ? `<span class="evidence-tag" title="${escHtml(ev)}">📎 ${escHtml(ev.substring(0,30))}...</span>` : '—'}</td>`;
+      html += '</tr>';
+    });
+
+    html += '</tbody></table></div></div>';
+  }
+
+  // All line items
+  const lineItems = data.line_items || [];
+  if (lineItems.length > 0) {
+    html += `<div class="card" style="margin-top:16px;"><div class="card-title">📋 All Line Items (${lineItems.length})</div>
+    <div class="table-container"><table><thead><tr><th>Label</th>`;
+    periods.forEach(p => { html += `<th class="number">${escHtml(p)}</th>`; });
+    html += `<th>Page</th></tr></thead><tbody>`;
+
+    lineItems.forEach(item => {
+      html += `<tr><td class="primary">${escHtml(item.label || '—')}</td>`;
+      periods.forEach(p => {
+        const v = item.values?.[p];
+        html += `<td class="number">${v != null ? formatNumber(v) : '<span class="null-value">null</span>'}</td>`;
+      });
+      html += `<td>${item.page_number || '—'}</td></tr>`;
+    });
+
+    html += '</tbody></table></div></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+function renderValidation(validation) {
+  const container = document.getElementById('validationChecks');
+  if (!validation || !validation.checks || validation.checks.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📊</div><h3>No validation checks</h3><p>Validation checks require extracted field values.</p></div>';
+    return;
+  }
+
+  let html = '';
+
+  // Issues summary
+  if (validation.issues && validation.issues.length > 0) {
+    html += '<div class="alert alert-error" style="margin-bottom:16px;"><span>⚠️</span><div><strong>Validation Issues:</strong><ul style="margin-top:6px; padding-left:16px;">';
+    validation.issues.forEach(issue => {
+      html += `<li style="font-size:0.85rem; margin-top:4px;">${escHtml(issue)}</li>`;
+    });
+    html += '</ul></div></div>';
+  }
+
+  validation.checks.forEach(check => {
+    const cls = check.status === 'PASS' ? 'pass' : check.status === 'FAIL' ? 'fail' : 'na';
+    html += `
+    <div class="validation-check ${cls}">
+      <div class="check-header">
+        <div class="check-name">${escHtml(check.name)}</div>
+        <span class="badge badge-${cls}">${check.status}</span>
+      </div>
+      <div class="check-formula">${escHtml(check.formula)}</div>`;
+
+    if (check.status !== 'NOT_APPLICABLE') {
+      html += '<div class="check-values">';
+      if (check.operands) {
+        Object.entries(check.operands).forEach(([k, v]) => {
+          if (k !== 'period' && v !== null) {
+            html += `<div class="check-value-item"><div class="check-value-label">${escHtml(k)}</div><div class="check-value-num">${formatNumber(v)}</div></div>`;
+          }
+        });
+      }
+      if (check.calculated_value != null) {
+        html += `<div class="check-value-item"><div class="check-value-label">Calculated</div><div class="check-value-num">${formatNumber(check.calculated_value)}</div></div>`;
+      }
+      if (check.reported_value != null) {
+        html += `<div class="check-value-item"><div class="check-value-label">Reported</div><div class="check-value-num">${formatNumber(check.reported_value)}</div></div>`;
+      }
+      if (check.variance != null) {
+        html += `<div class="check-value-item"><div class="check-value-label">Variance</div><div class="check-value-num" style="color:${check.status === 'PASS' ? 'var(--color-pass)' : 'var(--color-fail)'};">${formatNumber(check.variance)}</div></div>`;
+      }
+      if (check.tolerance != null) {
+        html += `<div class="check-value-item"><div class="check-value-label">Tolerance</div><div class="check-value-num">${formatNumber(check.tolerance)}</div></div>`;
+      }
+      html += '</div>';
+    } else {
+      const reason = check.operands?.reason || '';
+      if (reason) html += `<div style="font-size:0.8rem; color:var(--text-muted); margin-top:6px;">${escHtml(reason)}</div>`;
+    }
+
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// Utilities
+// ============================================================
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name)?.classList.add('active');
+}
+
+function toggleJsonViewer() {
+  const tab = document.querySelector('.tabs .tab:last-child');
+  tab?.click();
+}
+
+function copyJson() {
+  const text = document.getElementById('jsonViewer').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('JSON copied to clipboard'));
+}
+
+function formatDocType(type) {
+  const map = {
+    invoice: 'Invoice',
+    balance_sheet: 'Balance Sheet',
+    profit_and_loss: 'Profit & Loss',
+    cash_flow_statement: 'Cash Flow Statement',
+  };
+  return map[type] || type;
+}
+
+function formatNumber(n) {
+  if (typeof n === 'number') return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  return String(n);
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Init
+loadResult();
+</script>
+</body>
+</html>
