@@ -104,7 +104,7 @@ Configurable via environment variables. Default: **Google Gemini 1.5 Pro** (or G
 
 ```env
 AI_PROVIDER=google    # openai | anthropic | google
-AI_MODEL=gemini-1.5-pro
+AI_MODEL=gemini-3.6-flash
 GOOGLE_API_KEY=your_key_here
 ```
 
@@ -296,7 +296,7 @@ Get latest result for a document by filename.
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/intelligent_document_extraction.git
+git clone https://github.com/Priyangshu07/intelligent_document-_extraction.git
 cd intelligent_document_extraction
 
 # 2. Create virtual environment
@@ -311,7 +311,7 @@ cp .env.example backend/.env
 # Edit backend/.env and set:
 #   DATABASE_URL=postgresql://user:pass@localhost:5432/docai
 #   AI_PROVIDER=google
-#   AI_MODEL=gemini-1.5-pro
+#   AI_MODEL=gemini-3.6-flash
 #   GOOGLE_API_KEY=your_key_here
 
 # 5. Create database
@@ -392,7 +392,7 @@ docker build -t findoc-ai .
 docker run -p 8000:8000 \
   -e DATABASE_URL=postgresql://... \
   -e AI_PROVIDER=google \
-  -e AI_MODEL=gemini-1.5-pro \
+  -e AI_MODEL=gemini-3.6-flash \
   -e GOOGLE_API_KEY=your_key \
   findoc-ai
 ```
@@ -407,7 +407,7 @@ docker run -p 8000:8000 \
 | Backend API | TBD after deployment |
 | Swagger/OpenAPI | TBD after deployment |
 | Health | TBD after deployment |
-| GitHub | https://github.com/YOUR_USERNAME/intelligent_document_extraction |
+| GitHub | https://github.com/Priyangshu07/intelligent_document-_extraction |
 
 ---
 
