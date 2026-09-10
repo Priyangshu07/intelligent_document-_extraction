@@ -5,12 +5,12 @@ services:
     region: oregon
     plan: free
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.11
       - key: PYTHONPATH
-        value: /opt/render/project/src
+        value: /opt/render/project/src/backend
       - key: AI_PROVIDER
         value: google
       - key: AI_MODEL
