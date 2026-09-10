@@ -5,8 +5,10 @@ services:
     region: oregon
     plan: free
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: cd backend && PYTHONPATH=$(pwd) uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
+      - key: PYTHONPATH
+        value: /opt/render/project/src
       - key: AI_PROVIDER
         value: google
       - key: AI_MODEL
@@ -18,15 +20,21 @@ services:
           name: findoc-db
           property: connectionString
       - key: MAX_PAGES
-        value: 3
+        value: "3"
       - key: VALIDATION_ABS_TOLERANCE
-        value: 1.0
+        value: "1.0"
       - key: VALIDATION_REL_TOLERANCE
-        value: 0.005
+        value: "0.005"
       - key: LOG_LEVEL
         value: INFO
-      - key: PYTHONPATH
-        value: /opt/render/project/src/backend
+      - key: APP_NAME
+        value: "Financial Document Intelligence Platform"
+      - key: APP_VERSION
+        value: "1.0.0"
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        value: "*"
 
 databases:
   - name: findoc-db

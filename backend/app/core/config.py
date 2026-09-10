@@ -44,7 +44,7 @@ class Settings(BaseSettings):
             return ["*"]
         return [origin.strip() for origin in v.split(",")]
 
-    model_config = {"env_file": ".env", "extra": "ignore"}
+    model_config = {"env_file": (".env", "backend/.env"), "extra": "ignore"}
 
 
 settings = Settings()
